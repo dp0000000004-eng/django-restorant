@@ -1,6 +1,7 @@
 from restorantapp.models import Menu, Order, UserModel
 from django.http import JsonResponse
 from django.utils import timezone
+from django.contrib import messages                      
 
 # Renamed the view function to avoid naming conflict with the Menu model
 def userHandler(request):
@@ -16,7 +17,9 @@ def userHandler(request):
             balance=userBalance
         )
         newUser.save()
+        messages = messages.success(request, message="User Created Successfully :)") # Use This for more simple User Interface!!
         return JsonResponse({'message':'user successfuly created'})
+        
     
     elif request.method == 'GET':
         userId = request.GET.get('userId')
